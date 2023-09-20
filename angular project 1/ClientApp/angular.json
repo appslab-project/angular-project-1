@@ -132,5 +132,8 @@
       }
     }
   },
-  "defaultProject": "angular_project_1"
+  "defaultProject": "angular_project_1",
+  "cli": {
+    "analytics": false
+  }
 }
