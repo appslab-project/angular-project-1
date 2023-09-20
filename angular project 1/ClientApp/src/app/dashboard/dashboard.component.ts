@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+interface User {
+  xp: number;
+  guild: string;
+}
 
 @Component({
   selector: 'app-dashboard',
@@ -6,5 +10,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent {
-
+  user: User = {
+    xp: 100,
+    guild: 'Adventurers'
+  };
 }
