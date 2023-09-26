@@ -8,10 +8,10 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent {
-  public userinfo: Userdto[] = [];
+  public userinfo: Userdto;
 
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    http.get<Userdto[]>(baseUrl + 'Userdto').subscribe(result => {
+    http.get<Userdto>(baseUrl + 'user').subscribe(result => {
       this.userinfo = result;
     }, error => console.error(error));
   }

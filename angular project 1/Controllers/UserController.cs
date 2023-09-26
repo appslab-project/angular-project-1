@@ -8,32 +8,22 @@ using Microsoft.EntityFrameworkCore;
 
 namespace angular_project_1.Controllers
 {
+    [ApiController]
+    [Route("[controller]")]
+
     public class UserController : ControllerBase
     {
 
-
         private readonly ILogger<UserController> _logger;
 
-        public UserController(
-            //IClientRequestParametersProvider User,
-            ILogger<UserController> logger)
+        public UserController(ILogger<UserController> logger)
         {
-            //User = ;
             _logger = logger;
         }
-
         [HttpGet]
-            public IEnumerable<Userdto> Get()
-            {
-            return Enumerable.Range(1, 5).Select(index => new Userdto
-            {
-                xp = 50,
-                guild = "stu"
-
-
-            })
-                .ToArray();
-            }
-        
+        public IEnumerable<Userdto> Get()
+        {
+            yield return new Userdto { guild = "student", xp = 30 };
+        }
     }
 }
