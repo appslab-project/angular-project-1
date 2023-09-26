@@ -1,8 +1,6 @@
-import { Component } from '@angular/core';
-interface User {
-  xp: number;
-  guild: string;
-}
+import { Component, Inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -10,8 +8,18 @@ interface User {
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent {
-  user: User = {
-    xp: 100,
-    guild: 'Adventurers'
-  };
+  public userinfo: Userdto[] = [];
+
+  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+    http.get<Userdto[]>(baseUrl + 'Userdto').subscribe(result => {
+      this.userinfo = result;
+    }, error => console.error(error));
+  }
+  
 }
+interface Userdto {
+  guild: string;
+  xp: number;
+
+}
+
