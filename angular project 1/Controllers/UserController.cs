@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.ObjectModel;
 
 namespace angular_project_1.Controllers
 {
@@ -21,9 +22,9 @@ namespace angular_project_1.Controllers
             _logger = logger;
         }
         [HttpGet]
-        public IEnumerable<Userdto> Get()
+        public Userdto Get()
         {
-            yield return new Userdto { guild = "student", xp = 30 };
+             return new Userdto { guild = "student", xp = 30 };
         }
     }
 }
