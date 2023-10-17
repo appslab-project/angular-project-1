@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
+using System.Security.Claims;
 
 namespace angular_project_1.Controllers
 {
@@ -14,17 +15,39 @@ namespace angular_project_1.Controllers
 
     public class UserController : ControllerBase
     {
+        private readonly ApplicationDbContext _context;
 
-        private readonly ILogger<UserController> _logger;
-
-        public UserController(ILogger<UserController> logger)
+        public UserController(ApplicationDbContext context)
         {
-            _logger = logger;
+            _context = context;
         }
+
+
         [HttpGet]
-        public Userdto Get()
+        public ActionResult<ApplicationUser> Get()
         {
-             return new Userdto { guild = "student", xp = 30 };
+            var currentUser = GetCurrentUser();
+
+            var info = new ApplicationUser
+            {
+                xp = currentUser.xp
+            };
+
+            return info;
+
+        }
+
+        private Models.ApplicationUser GetCurrentUser()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            Models.ApplicationUser? user = _context.Users
+                //.Include(user => user.guild)
+                .SingleOrDefault(user => user.Id == userId);
+
+            return user!;
         }
     }
 }
+
+
